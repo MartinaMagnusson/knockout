@@ -18,32 +18,26 @@ namespace WebApplication6.Models
     }
     public class RandomNumbers
     {
-        private Random _randomNumber;
-        public int[] numbers {
+        public int RequestID { get; set; }
+        public List<int> numbers {
             get {
-                return new int[] { _randomNumber.Next(0,100), _randomNumber.Next(0, 100), _randomNumber.Next(0, 100), _randomNumber.Next(0, 100), _randomNumber.Next(0, 100), _randomNumber.Next(0, 100) };
+                return new List<int>() { };
             }
         }
         public RandomNumbers()
         {
-            _randomNumber = new Random();
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
         }  
     }
 
     public class StaticNumbers
     {
-        private Random _randomStaticNumber;
         public List<int> numbers
         {
             get
             {
                 return new List<int>() {};
             }
-        }
-        public StaticNumbers()
-        {
-            _randomStaticNumber = new Random();
         }
     }
 

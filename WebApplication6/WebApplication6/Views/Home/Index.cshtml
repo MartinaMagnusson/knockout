@@ -6,10 +6,11 @@
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
 
 <div id="content">
-    <h1>Random numbers</h1>
+    <h1>Add random numbers</h1>
     <!-- ko foreach: $root.data().randomNumbers.numbers -->
     <div data-bind="text: $data"></div>
     <!--/ko-->
+    <span>Quantity </span><input type="text" id="newRandom" /> <button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>
     <hr style="height:5px" />
     <h1>Add number</h1>
     <!-- ko foreach: $root.data().staticNumbers.numbers -->
@@ -21,7 +22,7 @@
     <input type="color" id="newColor" />
     @*<input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newStatic').val()); }">+</a>*@
 
-    <input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</a>
+    <input type="text" id="newStatic" /> <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
 </div>
 
 <script type="text/javascript">
@@ -32,6 +33,11 @@
 
         self.init = function () {
 
+        };
+        self.addRandomNumber = function (value) {
+            for (var i = 0; i < value; i++) {
+                self.data().randomNumbers.numbers.push(Math.floor((Math.random() * 100) + 1));
+            }
         };
 
         self.addStaticNumber = function (color, value) {

@@ -1,19 +1,27 @@
 ﻿@using Newtonsoft.Json;
-@model WebApplication6.Models.Numbers
+@model Numbers.HelperClasses.NumbersHelper
 @{
     ViewBag.Title = "Index";
 }
-<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        var vm = new NumbersViewModel();
+        vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
+        vm.init();
+        ko.applyBindings(vm, $('#content').get(0));
+    });
+</script>
+
 
 <div id="content">
     <h1>Add random numbers</h1>
-    <!-- ko foreach: $root.data().randomNumbers.numbers -->
+    <!-- ko foreach: $root.data().randomNumbersHelper.Numbers -->
     <div data-bind="text: $data"></div>
     <!--/ko-->
     <span>Quantity </span><input type="text" id="newRandom" /> <button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>
     <hr style="height:5px" />
     <h1>Add number</h1>
-    <!-- ko foreach: $root.data().staticNumbers.numbers -->
+    <!-- ko foreach: $root.data().staticNumbersHelper.Numbers -->
     <!-- ko if: $index() % 5 == 0 -->
     <hr />
     <!--/ko-->
@@ -25,60 +33,3 @@
     <input type="text" id="newStatic" /> <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
 </div>
 
-    <script>
-function showHint(str) {
-    if (str.length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-            }
-        }
-        xmlhttp.open("GET", "gethint.asp?q=" + str, true);
-        xmlhttp.send();
-    }
-}
-    </script>
-
-    <p><b>Start typing a name in the input field below:</b></p>
-    <form>
-        First name: <input type="text" onkeyup="showHint(this.value)">
-    </form>
-    <p>Suggestions: <span id="txtHint"></span></p>
-
-
-
-
-
-
-    <script type="text/javascript">
-    var NumbersViewModel = function () {
-        var self = this;
-
-        self.data = ko.observableArray();
-
-        self.init = function () {
-
-        };
-        self.addRandomNumber = function (value) {
-            for (var i = 0; i < value; i++) {
-                self.data().randomNumbers.numbers.push(Math.floor((Math.random() * 100) + 1));
-            }
-        };
-
-        self.addStaticNumber = function (color, value) {
-            self.data().staticNumbers.numbers.push(value);
-            $('.number:last-of-type').css("color", color);
-        };
-    }
-
-    $(document).ready(function () {
-        var vm = new NumbersViewModel();
-        vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
-        vm.init();
-        ko.applyBindings(vm, $('#content').get(0));
-    });
-    </script>

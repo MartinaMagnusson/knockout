@@ -33,3 +33,12 @@
     <input type="text" id="newStatic" /> <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
 </div>
 
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var vm = new NumbersViewModel();
+        vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
+        vm.init();
+        ko.applyBindings(vm, $('#content').get(0));
+    });
+    </script>
+

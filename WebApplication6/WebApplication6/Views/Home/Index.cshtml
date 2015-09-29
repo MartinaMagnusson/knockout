@@ -24,7 +24,36 @@
     <input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</a>
 </div>
 
-<script type="text/javascript">
+    <script>
+function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "gethint.asp?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+    </script>
+
+    <p><b>Start typing a name in the input field below:</b></p>
+    <form>
+        First name: <input type="text" onkeyup="showHint(this.value)">
+    </form>
+    <p>Suggestions: <span id="txtHint"></span></p>
+
+
+
+
+
+
+    <script type="text/javascript">
     var NumbersViewModel = function () {
         var self = this;
 
@@ -46,4 +75,4 @@
         vm.init();
         ko.applyBindings(vm, $('#content').get(0));
     });
-</script>
+    </script>

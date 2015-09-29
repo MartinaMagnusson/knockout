@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Numbers.HelperClasses;
 using System.Web.Mvc;
-using WebApplication6.Models;
 
 namespace WebApplication6.Controllers
 {
@@ -12,9 +8,9 @@ namespace WebApplication6.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            Numbers numbers = new Numbers();
+            NumbersHelper numbersHelper = new NumbersHelper();
             
-            return View(numbers);
+            return View(numbersHelper);
         }
     }
 }

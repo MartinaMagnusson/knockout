@@ -9,10 +9,7 @@ namespace DAL
 {
     public class RandomNumbers
     {
-        public int Numbers { get; set; }
-        public RandomNumbers()
-        {
-            Thread.Sleep(1000);
-        }
+        public int ID { get; set; }
+        public List<int> Numbers { get; set; }
     }
 }

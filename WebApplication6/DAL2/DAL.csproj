@@ -52,6 +52,10 @@
     <Compile Include="Context.cs" />
     <Compile Include="ContextInitializer.cs" />
     <Compile Include="ContextRepositoryGet.cs" />
+    <Compile Include="HelperClass\NumbersHelper.cs" />
+    <Compile Include="HelperClass\RandomNumbersHelper.cs" />
+    <Compile Include="HelperClass\StaticNumbersHelper.cs" />
+    <Compile Include="Numbers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomNumbers.cs" />
     <Compile Include="StaticNumbers.cs" />

@@ -1,12 +1,13 @@
-﻿namespace DAL
+﻿using System.Collections.Generic;
+
+namespace DAL
 {
     public class StaticNumbers
     {
-        public int RequestId { get; set; }
+        public int ID { get; set; }
 
-        public int StaticNumber { get; set; }
-        
         public string Color { get; set; }
 
+        public List<int> Numbers { get; set; }
     }
 }

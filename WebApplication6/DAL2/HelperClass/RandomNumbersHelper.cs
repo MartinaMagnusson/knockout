@@ -4,17 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numbers.HelperClasses
+namespace DAL2.HelperClasses
 {
     public class RandomNumbersHelper
     {
         public int ID { get; set; }
-        public List<int> Numbers
-        {
-            get
-            {
-                return new List<int>();
-            }
-        }
+        public List<int> Numbers{ get; set; }
     }
 }

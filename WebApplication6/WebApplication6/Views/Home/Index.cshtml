@@ -1,5 +1,5 @@
 ﻿@using Newtonsoft.Json;
-@model Numbers.HelperClasses.NumbersHelper
+@model IQueryable<DAL2.HelperClasses.NumbersHelper>
 @{
     ViewBag.Title = "Index";
 }
@@ -15,30 +15,40 @@
 
 <div id="content">
     <h1>Add random numbers</h1>
+    @if (Model != null)
+    {
     <!-- ko foreach: $root.data().randomNumbersHelper.Numbers -->
-    <div data-bind="text: $data"></div>
+        <div data-bind="text: $data"></div>
     <!--/ko-->
+    }
     <span>Quantity </span><input type="text" id="newRandom" /> <button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>
     <hr style="height:5px" />
     <h1>Add number</h1>
+    @if (Model != null)
+    {
     <!-- ko foreach: $root.data().staticNumbersHelper.Numbers -->
     <!-- ko if: $index() % 5 == 0 -->
-    <hr />
+        <hr />
     <!--/ko-->
-    <div class="number" data-bind="text: $data"></div>
+    }
+    <div class="number" id="staticNumbers" data-bind="text: $data"></div>
     <!--/ko-->
-    <input type="color" id="newColor" />
     @*<input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newStatic').val()); }">+</a>*@
+    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions() { UpdateTargetId = "staticNumbers", InsertionMode = InsertionMode.Replace }))
+    {
+        <input type="color" id="newColor" />
+        <input type="text" id="newStatic" />
+        <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
+    }
 
-    <input type="text" id="newStatic" /> <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
 </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         var vm = new NumbersViewModel();
         vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
         vm.init();
         ko.applyBindings(vm, $('#content').get(0));
     });
-    </script>
+</script>
 

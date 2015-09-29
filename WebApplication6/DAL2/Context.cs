@@ -10,7 +10,7 @@ namespace DAL
     public class Context : DbContext
     {
         public DbSet<StaticNumbers> StaticNumbers { get; set; }
-        public DbSet<RandomNumbers> RandomNumbers { get; set; }
-
+        public DbSet<RandomNumbers> RandomNumbers { get; set; } 
+        public DbSet<Numbers> Numbers { get; set; }
     }
 }

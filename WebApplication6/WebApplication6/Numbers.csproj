@@ -119,6 +119,7 @@
     <Compile Include="Models\RandomNumbersHelper.cs" />
     <Compile Include="Models\StaticNumbersHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticNumbers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebApplication1
+namespace DAL
 {
     public class RandomNumbers
     {

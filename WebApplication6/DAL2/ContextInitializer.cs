@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace WebApplication1
+namespace DAL
 {
     public class ContextInitializer : DropCreateDatabaseAlways<Context>
     {

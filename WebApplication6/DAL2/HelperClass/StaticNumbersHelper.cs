@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL2.HelperClasses
+namespace Numbers.HelperClasses
 {
     public class StaticNumbersHelper
     {
@@ -12,6 +12,12 @@ namespace DAL2.HelperClasses
 
         public string Color { get; set; }
 
-        public List<int> Numbers {get; set;}
+        public List<int> Numbers
+        {
+            get
+            {
+                return new List<int>() { };
+            }
+        }
     }
 }

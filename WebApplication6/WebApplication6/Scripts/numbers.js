@@ -13,13 +13,14 @@ var NumbersViewModel = function () {
     };
     self.addRandomNumber = function (value) {
         for (var i = 0; i < value; i++) {
-            self.data().randomNumbersHelper.Numbers.push(Math.floor((Math.random() * 100) + 1));
+            self.data().randomNumbers.Numbers.push(Math.floor((Math.random() * 100) + 1));
         }
     };
 
     self.addStaticNumber = function (color, value) {
-        self.data().staticNumbersHelper.Numbers.push(value);
+        self.data().staticNumbers.Numbers.push(value);
         $('.number:last-of-type').css("color", color);
     };
+
 }
 

@@ -1,5 +1,5 @@
 ﻿@using Newtonsoft.Json;
-@model IQueryable<DAL2.HelperClasses.NumbersHelper>
+@model WebApplication6.Models.Numbers
 @{
     ViewBag.Title = "Index";
 }
@@ -12,34 +12,39 @@
     });
 </script>
 
-
 <div id="content">
     <h1>Add random numbers</h1>
-    @if (Model != null)
-    {
-    <!-- ko foreach: $root.data().randomNumbersHelper.Numbers -->
-        <div data-bind="text: $data"></div>
+    <!-- ko foreach: $root.data().randomNumbers.Numbers -->
+    <div id="randomNumbers" data-bind="text: $data"></div>
     <!--/ko-->
+    @using (Ajax.BeginForm("RandomNumber", "Home", new { value = Model.randomNumbers.Number}, new AjaxOptions { UpdateTargetId = "result", HttpMethod = "Post"}))
+    {
+        <span>Quantity: </span>
+        <div class="editor-label">
+            <div class="editor-field">
+                @Html.TextBoxFor(Model => Model.randomNumbers.Number)
+            </div>
+
+        </div>
+
+        <input type="submit" value=" + " />
+            @*<input type="text" id="newRandom" />*@
+            @*<button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>*@
     }
-    <span>Quantity </span><input type="text" id="newRandom" /> <button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>
     <hr style="height:5px" />
     <h1>Add number</h1>
-    @if (Model != null)
-    {
-    <!-- ko foreach: $root.data().staticNumbersHelper.Numbers -->
+    <!-- ko foreach: $root.data().staticNumbers.Numbers -->
     <!-- ko if: $index() % 5 == 0 -->
-        <hr />
+    <hr />
     <!--/ko-->
-    }
     <div class="number" id="staticNumbers" data-bind="text: $data"></div>
     <!--/ko-->
     @*<input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newStatic').val()); }">+</a>*@
-    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions() { UpdateTargetId = "staticNumbers", InsertionMode = InsertionMode.Replace }))
-    {
-        <input type="color" id="newColor" />
-        <input type="text" id="newStatic" />
-        <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
-    }
+
+    <input type="color" id="newColor" />
+    <input type="text" id="newStatic" />
+    <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
+
 
 </div>
 

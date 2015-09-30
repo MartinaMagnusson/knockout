@@ -9,7 +9,29 @@
         vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
         vm.init();
         ko.applyBindings(vm, $('#content').get(0));
+
+      
+
+        $("#button").click(function () {
+            var item = $("#newRandom").val();
+            $.ajax({
+                url: '/Home/Index',
+                type: 'POST',
+                dataType: 'json',
+                data: { "value": item },
+                success: function (data) {
+                    if (data.status === 'OK') {
+                        window.location.href = data.url
+                    }
+                    else {
+                        alert("fel!!!!!");
+                    }
+                }
+            });
+
+        });
     });
+
 </script>
 
 <div id="content">
@@ -17,20 +39,23 @@
     <!-- ko foreach: $root.data().randomNumbers.Numbers -->
     <div id="randomNumbers" data-bind="text: $data"></div>
     <!--/ko-->
-    @using (Ajax.BeginForm("RandomNumber", "Home", new { value = Model.randomNumbers.Number}, new AjaxOptions { UpdateTargetId = "result", HttpMethod = "Post"}))
-    {
-        <span>Quantity: </span>
+
+    <input type="text" id="newRandom" />
+    <input type="submit" id="button" value=" + " />
+
+    @*@using (Ajax.BeginForm("RandomNumber", "Home", new { value = Model.randomNumbers.number }, new AjaxOptions { UpdateTargetId = "result", HttpMethod = "Post"}))
+    {*@
+        @*<span>Quantity: </span>
         <div class="editor-label">
             <div class="editor-field">
-                @Html.TextBoxFor(Model => Model.randomNumbers.Number)
+                @Html.EditorFor(value => Model.randomNumbers.number)
             </div>
 
-        </div>
+        </div>*@
 
-        <input type="submit" value=" + " />
-            @*<input type="text" id="newRandom" />*@
+       
             @*<button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>*@
-    }
+    @*}*@
     <hr style="height:5px" />
     <h1>Add number</h1>
     <!-- ko foreach: $root.data().staticNumbers.Numbers -->

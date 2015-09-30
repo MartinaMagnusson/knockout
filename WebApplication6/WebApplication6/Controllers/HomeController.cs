@@ -8,13 +8,14 @@ namespace WebApplication6.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
             Numbers numbers = new Numbers();
             return View(numbers);
         }
         [HttpPost]
-        public ActionResult RandomNumber(int value)
+        public ActionResult Index(int value)
         {
             Random random = new Random();
             Numbers numbers = new Numbers();
@@ -22,13 +23,17 @@ namespace WebApplication6.Controllers
             {
                 for (int i = 0; i < value; i++)
                 {
-                    numbers.randomNumbers.Numbers.Add(random.Next(1, 100));
+                    numbers.randomNumbers.Numbers.Add(random.Next(1,100));
                     Thread.Sleep(1000);
                    
                 }
-         
+                return Json(numbers, JsonRequestBehavior.AllowGet);
             }
-            return Json(numbers, JsonRequestBehavior.AllowGet);
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
         //[HttpPost]
         //public ActionResult Index(string color, string value)

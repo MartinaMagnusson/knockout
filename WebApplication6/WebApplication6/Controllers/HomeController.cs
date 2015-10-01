@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Razor.Text;
 using WebApplication6.Models;
 
 namespace WebApplication6.Controllers
@@ -8,32 +13,44 @@ namespace WebApplication6.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        [HttpGet]
         public ActionResult Index()
         {
             Numbers numbers = new Numbers();
             return View(numbers);
         }
         [HttpPost]
-        public ActionResult Index(int value)
+        public JsonResult Index(int value)
         {
-            Random random = new Random();
-            Numbers numbers = new Numbers();
+            var random = new Random();
+            var randomNumbers = new RandomNumbers();
             if (value != 0)
             {
                 for (int i = 0; i < value; i++)
                 {
-                    numbers.randomNumbers.Numbers.Add(random.Next(1,100));
-                    Thread.Sleep(1000);
-                   
+                    randomNumbers.Numbers.Add(random.Next(1, 100));
+                    randomNumbers.Numbers.Add(" ");
+                    //Thread.Sleep(1000);
                 }
-                return Json(numbers, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            
+            var numbers = new Numbers(randomNumbers);
+            var jsonResult = new JsonResult() {
+                Data = numbers.randomNumbers.Numbers,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
+
+            return Json(jsonResult.Data);
+            //Numbers numbers = new Numbers();
+            //Random random = new Random();
+            //if (value != 0)
+            //{
+            //    for (int i = 0; i < value; i++)
+            //    {
+            //        numbers.randomNumbers.Numbers.Add(random.Next(1,100));
+            //        Thread.Sleep(1000);          
+            //    }
+            //}
+            //return View(numbers);
+            //return Json(numbers, JsonRequestBehavior.AllowGet);
         }
         //[HttpPost]
         //public ActionResult Index(string color, string value)

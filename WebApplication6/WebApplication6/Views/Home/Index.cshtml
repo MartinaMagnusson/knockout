@@ -4,58 +4,52 @@
     ViewBag.Title = "Index";
 }
 <script>
+    //function viewModel() {
+    //    var self = this;
+    //    self.salesdata = ko.observableArray();
+    //};
+
     $(document).ready(function () {
         var vm = new NumbersViewModel();
         vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
         vm.init();
         ko.applyBindings(vm, $('#content').get(0));
-
-      
-
-        $("#button").click(function () {
-            var item = $("#newRandom").val();
-            $.ajax({
-                url: '/Home/Index',
-                type: 'POST',
-                dataType: 'json',
-                data: { "value": item },
-                success: function (data) {
-                    if (data.status === 'OK') {
-                        window.location.href = data.url
-                    }
-                    else {
-                        alert("fel!!!!!");
-                    }
-                }
-            });
-
-        });
+        //$("#button").click(function () {
+        //    var item = $("#newRandom").val();
+        //    var self = this;
+        //    entries: ko.observableArray(),
+        //    $.ajax({
+        //        url: '/Home/Index',
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        data: { "value": item },
+        //        success: function (data) {
+        //            var information = data.val();
+        //            var mappedRests2 = $.map($.parseJSON(information));
+        //            self.salesdata(mappedRests2);
+        //        }
+        //    });
+        //});
     });
 
 </script>
 
 <div id="content">
     <h1>Add random numbers</h1>
-    <!-- ko foreach: $root.data().randomNumbers.Numbers -->
-    <div id="randomNumbers" data-bind="text: $data"></div>
-    <!--/ko-->
+    <div id="randomNumbers">
+        <!-- ko foreach: $root.data().randomNumbers.Numbers -->
+        <div data-bind="text: $data"></div>
+        <!--/ko-->
+    </div>
 
-    <input type="text" id="newRandom" />
-    <input type="submit" id="button" value=" + " />
+    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions { UpdateTargetId = "randomNumbers", HttpMethod = "Post" }))
+    {
+        <input type="text" id="newRandom" name="value" />
+        <input type="submit" id="button" value=" + " />
+    }
+   
+    @*<button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>*@
 
-    @*@using (Ajax.BeginForm("RandomNumber", "Home", new { value = Model.randomNumbers.number }, new AjaxOptions { UpdateTargetId = "result", HttpMethod = "Post"}))
-    {*@
-        @*<span>Quantity: </span>
-        <div class="editor-label">
-            <div class="editor-field">
-                @Html.EditorFor(value => Model.randomNumbers.number)
-            </div>
-
-        </div>*@
-
-       
-            @*<button data-bind="click: function() { $root.addRandomNumber($('#newRandom').val()); }">+</button>*@
-    @*}*@
     <hr style="height:5px" />
     <h1>Add number</h1>
     <!-- ko foreach: $root.data().staticNumbers.Numbers -->
@@ -64,21 +58,8 @@
     <!--/ko-->
     <div class="number" id="staticNumbers" data-bind="text: $data"></div>
     <!--/ko-->
-    @*<input type="text" id="newStatic" /><a href="#" data-bind="click: function() { $root.addStaticNumber($('#newStatic').val()); }">+</a>*@
 
     <input type="color" id="newColor" />
     <input type="text" id="newStatic" />
     <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
-
-
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var vm = new NumbersViewModel();
-        vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
-        vm.init();
-        ko.applyBindings(vm, $('#content').get(0));
-    });
-</script>
-

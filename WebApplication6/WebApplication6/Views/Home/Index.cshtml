@@ -14,22 +14,22 @@
         vm.data(ko.mapping.fromJS(@(Html.Raw(JsonConvert.SerializeObject(Model)))));
         vm.init();
         ko.applyBindings(vm, $('#content').get(0));
-        //$("#button").click(function () {
-        //    var item = $("#newRandom").val();
-        //    var self = this;
-        //    entries: ko.observableArray(),
-        //    $.ajax({
-        //        url: '/Home/Index',
-        //        type: 'POST',
-        //        dataType: 'json',
-        //        data: { "value": item },
-        //        success: function (data) {
-        //            var information = data.val();
-        //            var mappedRests2 = $.map($.parseJSON(information));
-        //            self.salesdata(mappedRests2);
-        //        }
-        //    });
-        //});
+
+
+        $("#button").click(function () {
+            var item = $("#newRandom").val();
+            var self = this;
+            entries: ko.observableArray(),
+            $.ajax({
+                url: '/Home/Index',
+                type: 'POST',
+                dataType: 'json',
+                data: { "value": item },
+                success: function (data) {
+                    vm.data(ko.mapping.fromJS(data));
+                }
+            });
+        });
     });
 
 </script>
@@ -37,7 +37,7 @@
 <div id="content">
     <h1>Add random numbers</h1>
     <div id="randomNumbers">
-        <!-- ko foreach: $root.data().randomNumbers.Numbers -->
+        <!-- ko foreach: $root.data().randomNumbers -->
         <div data-bind="text: $data"></div>
         <!--/ko-->
     </div>

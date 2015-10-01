@@ -11,7 +11,9 @@ namespace WebApplication6.Models
        public RandomNumbers randomNumbers = new RandomNumbers();
         public Numbers()
         {
-
+            staticNumbers.Numbers.Add(1);
+            staticNumbers.Numbers.Add(4);
+            staticNumbers.Numbers.Add(9);
         }
         public Numbers(RandomNumbers randomNumbers)
         {

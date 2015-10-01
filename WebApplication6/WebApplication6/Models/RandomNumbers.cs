@@ -4,10 +4,10 @@ namespace WebApplication6.Models
 {
     public class RandomNumbers
     {
-        public List<object> Numbers { get; set; }
+        public List<int> Numbers { get; set; }
         public RandomNumbers()
         {
-            Numbers = new List<object>();
+            Numbers = new List<int>();
         }
     }
 }   

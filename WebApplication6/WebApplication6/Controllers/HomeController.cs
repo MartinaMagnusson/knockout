@@ -28,13 +28,13 @@ namespace WebApplication6.Controllers
                 for (int i = 0; i < value; i++)
                 {
                     randomNumbers.Numbers.Add(random.Next(1, 100));
-                    randomNumbers.Numbers.Add(" ");
+                    //randomNumbers.Numbers.Add(" ");
                     //Thread.Sleep(1000);
                 }
             }
             var numbers = new Numbers(randomNumbers);
             var jsonResult = new JsonResult() {
-                Data = numbers.randomNumbers.Numbers,
+                Data = numbers,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
             };
 

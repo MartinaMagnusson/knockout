@@ -30,7 +30,7 @@
     <h1>Add random numbers</h1>
     <div id="randomNumbers">
         <!-- ko foreach: $root.data().randomNumbers.Numbers -->
-        <div data-bind="text: $data"></div>
+        <p data-bind="text: $data"></p>
         <!--/ko-->
     </div>
 
@@ -52,3 +52,52 @@
     <input type="text" id="newStatic" />
     <button data-bind="click: function() { $root.addStaticNumber($('#newColor').val(), $('#newStatic').val()); }">+</button>
 </div>
+
+<script>
+    var editing = false;
+
+    if (document.getElementById && document.createElement) {
+        var butt = document.createElement('BUTTON');
+        var buttext = document.createTextNode('Ready!');
+        butt.appendChild(buttext);
+        butt.onclick = saveEdit;
+    }
+
+    function catchIt(e) {
+        if (editing) return;
+        if (!document.getElementById || !document.createElement) return;
+        if (!e) var obj = window.event.srcElement;
+        else var obj = e.target;
+        while (obj.nodeType != 1) {
+            obj = obj.parentNode;
+        }
+        if (obj.tagName == 'INPUT') return;
+        while (obj.nodeName != 'P' && obj.nodeName != 'HTML') {
+            obj = obj.parentNode;
+        }
+        if (obj.nodeName == 'HTML') return;
+        var x = obj.innerHTML;
+        var y = document.createElement('INPUT');
+        var z = obj.parentNode;
+        z.insertBefore(y, obj);
+        z.insertBefore(butt, obj);
+        z.removeChild(obj);
+        y.value = x;
+        y.focus();
+        editing = true;
+    }
+
+    function saveEdit() {
+        var area = document.getElementsByTagName('INPUT')[0];
+        var y = document.createElement('P');
+        var z = area.parentNode;
+        y.innerHTML = area.value;
+        z.insertBefore(y, area);
+        z.removeChild(area);
+        this.parentElement.removeChild(this);
+        editing = false;
+        z.removeChild(document.getElementsByTagName('button')[0]);
+    }
+
+    document.onclick = catchIt;
+</script>
